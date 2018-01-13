@@ -14,18 +14,23 @@ def prep_table(df):
 @app.route('/index')
 @app.route('/favorites')
 def index():
-    filename = 'favorites'
-    return render_template('favorites.html', filename=filename)
+    df = pd.read_csv('./app/input_files/favorites.txt', sep='\t')
+    df.drop(['Rank'], axis=1, inplace=True)
+    table = prep_table(df)
+    title = 'Favorite Albums of All Time'
+    return render_template('table.html', table=table, title=title)
 
 @app.route('/beachboys')
 def beachboys():
-    filename= 'beachboys'
-    return render_template('beachboys.html', filename=filename)
+    df = pd.read_csv('./app/input_files/beachboys.txt', sep='\t')
+    df.drop(['Rank'], axis=1, inplace=True)
+    table = prep_table(df)
+    title = 'Favorite Beach Boys Songs of All Time'
+    return render_template('table.html', table=table, title=title)
 
 @app.route('/tolisten')
 def tolisten():
-    filepath = './app/input_files/tolisten.txt'
-    df= pd.read_csv(filepath, sep='\t')
+    df = pd.read_csv('./app/input_files/tolisten.txt', sep='\t')
     table = prep_table(df)
     title = 'To Listen'
-    return render_template('tolisten.html', table=table, title=title)
+    return render_template('table.html', table=table, title=title)
