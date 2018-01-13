@@ -4,6 +4,12 @@ import pandas as pd
 import numpy as np
 
 
+def prep_table(df):
+    '''cleans dataframe and returns as html'''
+    df.replace(np.nan, '', inplace=True)
+    df.index += 1
+    return df.to_html()
+
 @app.route('/')
 @app.route('/index')
 @app.route('/favorites')
@@ -18,9 +24,8 @@ def beachboys():
 
 @app.route('/tolisten')
 def tolisten():
-    filepath = './app/tolisten.txt'
-    table = pd.read_csv(filepath, sep='\t')
-    table.replace(np.nan, '', inplace=True)
-    table.index += 1
+    filepath = './app/input_files/tolisten.txt'
+    df= pd.read_csv(filepath, sep='\t')
+    table = prep_table(df)
     title = 'To Listen'
-    return render_template('tolisten.html', table=table.to_html(), title=title)
+    return render_template('tolisten.html', table=table, title=title)
