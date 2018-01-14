@@ -53,6 +53,7 @@ def login():
         next_page = request.args.get('next')
         if not next_page or not next_page.startswith('/'):
             next_page = url_for('index')
+        flash('You were successfully logged in')
         return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
 
