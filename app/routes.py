@@ -22,6 +22,7 @@ def index():
                             user=current_user.username)
 
 @app.route('/favorites')
+@login_required
 def favorites():
     df = pd.read_csv('./app/input_files/favorites.txt', sep='\t')
     df.drop(['Rank'], axis=1, inplace=True)
