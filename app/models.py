@@ -36,3 +36,9 @@ class Album(db.Model):
 
     def __repr__(self):
         return '<{} by {}>'.format(self.title, self.artist)
+
+class Favorite(Album):
+    rank = db.Column(db.Integer, unique=True)
+
+    def __repr__(self):
+        return '<{}. {} by {}>'.format(self.rank, self.title, self.artist)

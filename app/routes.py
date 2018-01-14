@@ -15,9 +15,14 @@ def prep_table(df):
 
 @app.route('/')
 @app.route('/index')
-@app.route('/favorites')
 @login_required
 def index():
+    return render_template('index.html',
+                            title='Music-List',
+                            user=current_user.username)
+
+@app.route('/favorites')
+def favorites():
     df = pd.read_csv('./app/input_files/favorites.txt', sep='\t')
     df.drop(['Rank'], axis=1, inplace=True)
     table = prep_table(df)
