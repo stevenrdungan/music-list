@@ -22,4 +22,4 @@ class Album(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
-        return '<Album {}>'.format(self.title)
+        return '<{} by {}>'.format(self.title, self.artist)
