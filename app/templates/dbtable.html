@@ -1,27 +1,26 @@
-<html lang="en">
-    <h1>{{ title }}</h1>
-    <p>
-        <table>
-            <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th>Album</th>
-                    <th>Artist</th>
-                    <th>Year</th>
-                    <th>Last Played</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for r in rows %}
-                <tr>
-                    <td>{{ r[0] }}</td>
-                    <td>{{ r[1] }}</td>
-                    <td>{{ r[2] }}</td>
-                    <td>{{ r[3] }}</td>
-                    <td>{{ r[4].split(' ')[0] }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </p>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+    <table>
+        <thead>
+            <tr valign="top">
+                <th>Rank</th>
+                <th>Album</th>
+                <th>Artist</th>
+                <th>Year</th>
+                <th>Last Played</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in rows %}
+            <tr>
+                <td>{{ r[0] }}</td>
+                <td>{{ r[1] }}</td>
+                <td>{{ r[2] }}</td>
+                <td>{{ r[3] }}</td>
+                <td>{{ r[4].split(' ')[0] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

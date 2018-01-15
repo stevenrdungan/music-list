@@ -1,37 +1,5 @@
-<html lang="en">
-    <head>
-        {% if title %}
-        <title>{{ title }}</title>
-        {% else %}
-        <title>Music-List</title>
-        {% endif %}
-    </head>
-    <body>
-        {% if user %}
-        <h1>Hello, {{ user }}!</h1>
-        {% endif %}
-        <div>
-            {% if title %}
-            {{ title }}:
-            {% endif %}
-            <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('favorites') }}">Favorites</a>
-            {% if current_user.is_anonymous %}
-            <a href="{{ url_for('login') }}">Login</a>
-            {% else %}
-            <a href="{{ url_for('logout') }}">Logout</a>
-            {% endif %}
-        </div>
-        <hr>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul>
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
-        {% block content %}{% endblock %}
-    </body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Welcome to Music-List!</>
+{% endblock %}
