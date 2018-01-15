@@ -1,8 +1,10 @@
 alembic==0.9.6
 click==6.7
 Flask==0.12.2
+Flask-AlchemyDumps==0.0.10
 Flask-Login==0.4.1
 Flask-Migrate==2.1.1
+Flask-Script==2.0.6
 Flask-SQLAlchemy==2.3.2
 Flask-WTF==0.14.2
 google-api-python-client==1.6.4
@@ -22,6 +24,7 @@ pytz==2017.3
 rsa==3.4.2
 six==1.11.0
 SQLAlchemy==1.2.0
+Unipath==1.1
 uritemplate==3.0.0
 Werkzeug==0.14.1
 WTForms==2.1

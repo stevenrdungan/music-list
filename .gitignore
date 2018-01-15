@@ -103,3 +103,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# AlchemyDumps
+alchemydumps/
+
+# db backup
+app_backup.db
