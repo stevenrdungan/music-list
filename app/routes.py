@@ -5,7 +5,6 @@ from app.forms import LoginForm
 from app.models import User, Album
 import pandas as pd
 import numpy as np
-import sqlite3 as sql
 
 
 def prep_table(df):
@@ -26,26 +25,12 @@ def index():
 @app.route('/favorites')
 @login_required
 def favorites():
-    con = sql.connect("app.db")
-    cur = con.cursor()
-    query = """
-        SELECT rank, title, artist, year, last_played FROM albums
-        WHERE user_id = {}
-        """.format(current_user.id)
-    cur.execute(query)
-    rows = cur.fetchall()
+    favorites = (Album.query
+                .filter_by(user_id=current_user.id)
+                .order_by(Album.rank))
     title = 'Favorite Albums of All Time'
-    return render_template('dbtable.html', title=title, rows=rows)
+    return render_template('dbtable.html', rows=favorites)
 
-
-# @app.route('/favorites')
-# @login_required
-# def favorites():
-#     df = pd.read_csv('./app/input_files/favorites.txt', sep='\t')
-#     df.drop(['Rank'], axis=1, inplace=True)
-#     table = prep_table(df)
-#     title = 'Favorite Albums of All Time'
-#     return render_template('table.html', table=table, title=title)
 
 @app.route('/beachboys')
 def beachboys():

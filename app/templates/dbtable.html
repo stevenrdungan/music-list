@@ -14,11 +14,11 @@
         <tbody>
             {% for r in rows %}
             <tr>
-                <td>{{ r[0] }}</td>
-                <td>{{ r[1] }}</td>
-                <td>{{ r[2] }}</td>
-                <td>{{ r[3] }}</td>
-                <td>{{ r[4].split(' ')[0] }}</td>
+                <td>{{ r.rank }}</td>
+                <td>{{ r.title }}</td>
+                <td>{{ r.artist }}</td>
+                <td>{{ r.year }}</td>
+                <td>{{ r.last_played.strftime('%Y-%m-%d') }}</td>
             </tr>
             {% endfor %}
         </tbody>
