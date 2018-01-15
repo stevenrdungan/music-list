@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, request, url_for
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app
 from app.forms import LoginForm
-from app.models import User
+from app.models import User, Album
 import pandas as pd
 import numpy as np
 import sqlite3 as sql
@@ -29,7 +29,7 @@ def favorites():
     con = sql.connect("app.db")
     cur = con.cursor()
     query = """
-        SELECT title, artist, year, last_played FROM Album
+        SELECT rank, title, artist, year, last_played FROM albums
         WHERE user_id = {}
         """.format(current_user.id)
     cur.execute(query)

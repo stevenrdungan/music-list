@@ -10,6 +10,7 @@ def load_user(id):
 
 
 class User(UserMixin, db.Model):
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
@@ -27,18 +28,14 @@ class User(UserMixin, db.Model):
 
 
 class Album(db.Model):
+    __tablename__ = 'albums'
     id = db.Column(db.Integer, primary_key=True)
+    rank = db.Column(db.Integer, unique=True)
     title = db.Column(db.String(140))
     artist = db.Column(db.String(140))
     year = db.Column(db.Integer)
     last_played = db.Column(db.DateTime, index=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
-    def __repr__(self):
-        return '<{} by {}>'.format(self.title, self.artist)
-
-class Favorite(Album):
-    rank = db.Column(db.Integer, unique=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     def __repr__(self):
         return '<{}. {} by {}>'.format(self.rank, self.title, self.artist)

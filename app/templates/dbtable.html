@@ -4,6 +4,7 @@
         <table>
             <thead>
                 <tr>
+                    <th>Rank</th>
                     <th>Album</th>
                     <th>Artist</th>
                     <th>Year</th>
@@ -16,7 +17,8 @@
                     <td>{{ r[0] }}</td>
                     <td>{{ r[1] }}</td>
                     <td>{{ r[2] }}</td>
-                    <td>{{ r[3].split(' ')[0] }}</td>
+                    <td>{{ r[3] }}</td>
+                    <td>{{ r[4].split(' ')[0] }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
