@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>New Album</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.rank.label }}<br>
+            {{ form.rank(value=rank, size=32) }}
+            {% for error in form.rank.errors %}
+            <span style="color: red;">[{{ error}}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.title.label }}<br>
+            {{ form.title(size=32) }}
+            {% for error in form.title.errors %}
+            <span style="color: red;">[{{ error}}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.artist.label }}<br>
+            {{ form.artist(size=32) }}
+            {% for error in form.artist.errors %}
+            <span style="color: red;">[{{ error}}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.year.label }}<br>
+            {{ form.year(size=32) }}
+            {% for error in form.year.errors %}
+            <span style="color: red;">[{{ error}}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.last_played.label }}<br>
+            {{ form.last_played(value=last_played, size=32) }}
+            {% for error in form.last_played.errors %}
+            <span style="color: red;">[{{ error}}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
