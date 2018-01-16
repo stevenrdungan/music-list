@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ favForm.title }}
+    <form action="" method="post">
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Album</th>
+                    <th>Artist</th>
+                    <th>Year</th>
+                    <th>Last Played</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for f in favForm.favorites %}
+                <tr>
+                    <td>{{ f.rank }}</td>
+                    <td>{{ f.title }}</td>
+                    <td>{{ f.artist }}</td>
+                    <td>{{ f.year }}</td>
+                    <td>{{ f.last_played }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p>{{ favForm.submit() }}</p>
+    </form>
+{% endblock %}
