@@ -9,6 +9,7 @@
                 <th>Artist</th>
                 <th>Year</th>
                 <th>Last Played</th>
+                <th>Edit</th>
             </tr>
         </thead>
         <tbody>
@@ -19,6 +20,7 @@
                 <td>{{ r.artist }}</td>
                 <td>{{ r.year }}</td>
                 <td>{{ r.last_played.strftime('%Y-%m-%d') }}</td>
+                <td><a href="{{ url_for('edit', album_id=r.id)}}">edit</a></td>
             </tr>
             {% endfor %}
         </tbody>

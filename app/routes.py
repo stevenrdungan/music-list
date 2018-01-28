@@ -1,13 +1,23 @@
-from flask import render_template, flash, redirect, request, url_for
-from flask_login import current_user, login_user, logout_user, login_required
+from flask import (
+    flash,
+    redirect,
+    render_template,
+    request,
+    url_for
+)
+from flask_login import (
+    current_user,
+    login_required,
+    login_user,
+    logout_user
+)
 from app import app, db
-from app.forms import LoginForm, AlbumForm
-from app.models import User, Album
+from app.forms import AlbumForm, FavoritesForm, LoginForm
+from app.models import Album, User
 import pandas as pd
 import numpy as np
 from datetime import datetime
 from sqlalchemy import func
-
 
 def prep_table(df):
     '''cleans dataframe and returns as html'''
@@ -66,6 +76,69 @@ def add_favorite():
                            last_played=curr_dt,
                            rank=rank)
 
+
+@app.route('/favorites/edit/<int:album_id>', methods=['GET', 'POST'])
+@login_required
+def edit(album_id):
+    """
+    Edit existing album attributes
+    """
+    form = AlbumForm(request.form)
+    rankrow = (Album.query
+           .filter_by(user_id=current_user.id)
+           .filter_by(id=int(album_id))
+           .order_by(Album.rank.desc())
+           .limit(1)
+           .all()) # do this before POST because we need previous al sbum id
+    if request.method == 'POST' and form.validate_on_submit():
+        '''logic to verify commit'''
+        db.session.commit()
+        flash('Successfully edited album')
+        return redirect(url_for('favorites'))
+    rank = rankrow[0].rank
+    title = rankrow[0].title
+    artist = rankrow[0].artist
+    year = rankrow[0].year
+    last_played = rankrow[0].last_played
+    return render_template('editalbum.html',
+                           form=form,
+                           rank=rank,
+                           title=title,
+                           artist=artist,
+                           year=year,
+                           last_played=last_played)
+
+
+# @app.route('/favorites/edit/<id>', methods=['GET', 'POST'])
+# @login_required
+# def edit():
+#     """
+#     Edit existing album attributes
+#     """
+#     favForm = FavoritesForm()
+#     favorites = (Album.query
+#                 .filter_by(user_id=current_user.id)
+#                 .order_by(Album.rank))
+#     for album in favorites:
+#         a = AlbumForm()
+#         a.rank = album.rank
+#         a.title = album.title
+#         a.artist = album.artist
+#         a.year = album.year
+#         a.last_played = album.last_played.strftime('%Y-%m-%d')
+#         a.user_id = album.user_id
+#         favForm.favorites.append_entry(a)
+#     if request.method == 'POST':
+#         if favForm.validate_on_submit():
+#             # update database objects with changes to form
+#             db.session.commit()
+#             flash('Successfully edited albums')
+#             return redirect(url_for('favorites'))
+#         else:
+#             # look at validate_on_submit() and validate() code
+#             flash('Could not make updates')
+#             return redirect(url_for('favorites'))
+#     return render_template('edit.html', favForm=favForm)
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
