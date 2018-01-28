@@ -2,7 +2,7 @@ Features to develop:
 
 * add ability to add albums: **DONE Jan 15**
 * add ability to edit rankings
-* add ability to edit last played
+* add ability to edit last played **DONE Jan 28**
 * add ability to add album to any ranking
 
 * add 'tolisten' page
