@@ -77,21 +77,29 @@ def add_favorite():
                            rank=rank)
 
 
-@app.route('/favorites/edit/<int:album_id>', methods=['GET', 'POST'])
+#@app.route('/favorites/edit/<int:album_id>', methods=['GET', 'POST'])
+@app.route('/favorites/edit/<id>', methods=['GET', 'POST'])
 @login_required
-def edit(album_id):
+def edit(id):
     """
     Edit existing album attributes
     """
     form = AlbumForm(request.form)
     rankrow = (Album.query
            .filter_by(user_id=current_user.id)
-           .filter_by(id=int(album_id))
+           .filter_by(id=int(id))
            .order_by(Album.rank.desc())
            .limit(1)
            .all()) # do this before POST because we need previous al sbum id
     if request.method == 'POST' and form.validate_on_submit():
-        '''logic to verify commit'''
+        #album = Album()
+        album = Album.query.get(id)
+        album.rank = rankrow[0].rank # need logic for changing this
+        album.title = form.title.data
+        album.artist = form.artist.data
+        album.year = form.year.data
+        album.last_played = datetime.strptime(form.last_played.data, '%Y-%m-%d')
+        album.user_id = current_user.id
         db.session.commit()
         flash('Successfully edited album')
         return redirect(url_for('favorites'))
