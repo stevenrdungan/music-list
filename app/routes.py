@@ -19,11 +19,13 @@ import numpy as np
 from datetime import datetime
 from sqlalchemy import func
 
+
 def prep_table(df):
     '''cleans dataframe and returns as html'''
     df.replace(np.nan, '', inplace=True)
     df.index += 1
     return df.to_html()
+
 
 @app.route('/')
 @app.route('/index')
@@ -141,37 +143,6 @@ def edit(id):
                            last_played=last_played)
 
 
-# @app.route('/favorites/edit/<id>', methods=['GET', 'POST'])
-# @login_required
-# def edit():
-#     """
-#     Edit existing album attributes
-#     """
-#     favForm = FavoritesForm()
-#     favorites = (Album.query
-#                 .filter_by(user_id=current_user.id)
-#                 .order_by(Album.rank))
-#     for album in favorites:
-#         a = AlbumForm()
-#         a.rank = album.rank
-#         a.title = album.title
-#         a.artist = album.artist
-#         a.year = album.year
-#         a.last_played = album.last_played.strftime('%Y-%m-%d')
-#         a.user_id = album.user_id
-#         favForm.favorites.append_entry(a)
-#     if request.method == 'POST':
-#         if favForm.validate_on_submit():
-#             # update database objects with changes to form
-#             db.session.commit()
-#             flash('Successfully edited albums')
-#             return redirect(url_for('favorites'))
-#         else:
-#             # look at validate_on_submit() and validate() code
-#             flash('Could not make updates')
-#             return redirect(url_for('favorites'))
-#     return render_template('edit.html', favForm=favForm)
-
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -190,14 +161,8 @@ def login():
         return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
 
+
 @app.route('/logout/')
 def logout():
     logout_user()
     return redirect(url_for('index'))
-
-# @app.route('/tolisten')
-# def tolisten():
-#     df = pd.read_csv('./app/input_files/tolisten.txt', sep='\t')
-#     table = prep_table(df)
-#     title = 'To Listen'
-#     return render_template('table.html', table=table, title=title)
