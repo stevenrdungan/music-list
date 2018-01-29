@@ -54,6 +54,7 @@ def add_favorite():
     """
     form = AlbumForm(request.form)
     if request.method == 'POST' and form.validate_on_submit():
+        # add logic to insert album in any position
         album = Album()
         album.rank = form.rank.data
         album.title = form.title.data

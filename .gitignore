@@ -109,3 +109,6 @@ alchemydumps/
 
 # db backup
 app_backup.db
+
+# .pyc files
+*.pyc
