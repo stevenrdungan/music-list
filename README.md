@@ -14,7 +14,8 @@ Features to develop:
 * add ability to choose random album to listen to **DONE Jan 29**
 * add 'last played' list
 * add css/styling
-* ability to edit and delete tolisten list
+* ability to edit tolisten records **DONE Jan 29**
+* ability to delete tolisten records
 * ability to move from tolisten to favorites
 * **add unit testing**
 * **add logging**

@@ -14,7 +14,6 @@ from flask_login import (
 from app import app, db
 from app.forms import (
     AlbumForm,
-    #FavoritesForm,
     LoginForm,
     RandomForm,
     ToListenForm
@@ -71,7 +70,7 @@ def add_favorite():
         album.user_id = current_user.id
         db.session.add(album)
         db.session.commit()
-        flash('Successfully added album')
+        flash(f'Successfully added album {album.title} by {album.artist}')
         return redirect(url_for('favorites'))
     # addt'l variables
     curr_dt = datetime.now().strftime('%Y-%m-%d')
@@ -191,6 +190,44 @@ def add_tolisten():
         return redirect(url_for('tolisten'))
     return render_template('addalbumtolisten.html',
                            form=form)
+
+
+@app.route('/tolisten/edit/<id>', methods=['GET', 'POST'])
+@login_required
+def edit_tolisten(id):
+    """
+    Edit existing tolisten attributes
+    """
+    form = ToListenForm(request.form)
+    row = (ToListen.query
+           .filter_by(user_id=current_user.id)
+           .filter_by(id=int(id))
+           .limit(1)
+           .all())
+    if request.method == 'POST' and form.validate_on_submit():
+        tla = ToListen.query.get(id)
+        tla.title = form.title.data
+        tla.artist = form.artist.data
+        tla.year = form.year.data
+        tla.user_id = current_user.id
+        db.session.commit()
+        flash(f'Successfully edited to listen album {form.title.data} by {form.artist.data}')
+        return redirect(url_for('tolisten'))
+    title = row[0].title
+    artist = row[0].artist
+    year = row[0].year
+    return render_template('edittolisten.html',
+                           form=form,
+                           title=title,
+                           artist=artist,
+                           year=year)
+
+
+# @app.route('/lastplayed/')
+# @app.route('/lastplayed/')
+# def lastplayed(count=20):
+#     pass
+#     #return render_template
 
 
 @app.route('/login/', methods=['GET', 'POST'])

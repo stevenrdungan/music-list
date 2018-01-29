@@ -28,16 +28,12 @@ class AlbumForm(FlaskForm):
     submit = SubmitField('Commit Changes')
 
 
-class FavoritesForm(FlaskForm):
-    favorites = FieldList(FormField(AlbumForm))
-    submit = SubmitField('Update')
-
-
 class ToListenForm(FlaskForm):
     title = StringField('Title', [validators.InputRequired()])
     artist = StringField('Artist', [validators.InputRequired()])
     year = StringField('Year', [validators.InputRequired()])
     submit = SubmitField('Commit Changes')
+
 
 '''Select a random album from tolisten page'''
 class RandomForm(FlaskForm):
