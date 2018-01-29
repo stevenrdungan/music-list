@@ -223,11 +223,15 @@ def edit_tolisten(id):
                            year=year)
 
 
-# @app.route('/lastplayed/')
-# @app.route('/lastplayed/')
-# def lastplayed(count=20):
-#     pass
-#     #return render_template
+@app.route('/lastplayed/')
+@app.route('/lastplayed/<count>/')
+def lastplayed(count=20):
+    lastplayed = (Album.query
+                .filter_by(user_id=current_user.id)
+                .order_by(Album.last_played.desc())
+                .limit(count))
+    title = 'Favorite Albums of All Time'
+    return render_template('favorites.html', rows=lastplayed)
 
 
 @app.route('/login/', methods=['GET', 'POST'])

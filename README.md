@@ -12,7 +12,7 @@ Features to develop:
 * add 'tolisten' page **DONE Jan 29**
 * add ability to add album to tolisten **DONE Jan 29**
 * add ability to choose random album to listen to **DONE Jan 29**
-* add 'last played' list
+* add 'last played' list **DONE Jan 29**
 * add css/styling
 * ability to edit tolisten records **DONE Jan 29**
 * ability to delete tolisten records
