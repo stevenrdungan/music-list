@@ -43,7 +43,7 @@ def favorites():
                 .filter_by(user_id=current_user.id)
                 .order_by(Album.rank))
     title = 'Favorite Albums of All Time'
-    return render_template('dbtable.html', rows=favorites)
+    return render_template('favorites.html', rows=favorites)
 
 
 @app.route('/favorites/add/', methods=['GET', 'POST'])
@@ -142,6 +142,19 @@ def edit(id):
                            artist=artist,
                            year=year,
                            last_played=last_played)
+
+#TODO:
+# ability to add to tolisten
+# ability to add tolisten album to favorites
+@app.route('/tolisten/')
+@login_required
+def tolisten():
+    tolisten = (AlbumToListen.query
+                .filter_by(user_id=current_user.id)
+                .order_by(Album.artist)
+                .order_by(Album.title))
+    title = 'Albums To Listen'
+    return render_template('favorites.html', rows=tolisten)
 
 
 @app.route('/login/', methods=['GET', 'POST'])

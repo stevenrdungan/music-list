@@ -31,3 +31,15 @@ class AlbumForm(FlaskForm):
 class FavoritesForm(FlaskForm):
     favorites = FieldList(FormField(AlbumForm))
     submit = SubmitField('Update')
+
+
+class ToListenAlbumForm(FlaskForm):
+    title = StringField('Title', [validators.InputRequired()])
+    artist = StringField('Artist', [validators.InputRequired()])
+    year = StringField('Year', [validators.InputRequired()])
+    submit = SubmitField('Commit Changes')
+
+
+class ToListenForm(FlaskForm):
+        tolisten = FieldList(FormField(ToListenAlbumForm))
+        submit = SubmitField('Update')
