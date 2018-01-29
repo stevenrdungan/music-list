@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form action="" method="post">
+        <p>{{ form.random() }}</p>
+    </form>
+    <hr>
+    <table>
+        <thead>
+            <tr valign="top">
+                <th>Album</th>
+                <th>Artist</th>
+                <th>Year</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in rows %}
+            <tr>
+                <td>{{ r.title }}</td>
+                <td>{{ r.artist }}</td>
+                <td>{{ r.year }}</td>
+                <td>edit coming</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <hr>
+    <div>
+        <a href="{{ url_for('add_tolisten') }}">Add album to listen</a>
+    </div>
+{% endblock %}

@@ -11,6 +11,7 @@
             Music-List:
             <a href="{{ url_for('index') }}">Home</a>
             <a href="{{ url_for('favorites') }}">Favorites</a>
+            <a href="{{ url_for('tolisten') }}">To Listen</a>
             {% if current_user.is_anonymous %}
             <a href="{{ url_for('login') }}">Login</a>
             {% else %}

@@ -1,28 +1,35 @@
 Album	Artist	Year
-Whitefall	Aairria
-Premiers Symptomes	Air
-Another Thought	Arthur Russell
-Sea Change	Beck
-Golden Feelings	Beck
+Whitefall	Aairria	2012
+Premiers Symptomes	Air	1997
+Another Thought	Arthur Russell	1994
+Sea Change	Beck	2002
+Guero	Beck	2005
+Golden Feelings	Beck	1993
+The Information	Beck	2006
+Modern Guilt	Beck	2008
+Colors	Beck	2017
 The Only Place	Best Coast	2012
 Trailer Park	Beth Orton	1996
+Live at Carnegie Hall	Bill Withers	1973
 The Letting Go	Bonnie 'Prince' Billy	2006
 You Forgot It in People	Broken Social Scene	2002
 Born in the U.S.A.	Bruce Springsteen	1984
 Born to Run	Bruce Springsteen	1975
-Greetings from Asbury Park, N.J.	Bruce Springsteen
-Quelqu'un m'a dit	Carla Bruni
+Greetings from Asbury Park, N.J.	Bruce Springsteen	1973
+Quelqu'un m'a dit	Carla Bruni	2003
 Instrumentals	Clams Casino	2011
-Let Yourself Be Huge	Cloudkicker
+Let Yourself Be Huge	Cloudkicker	2011
 Collective Soul	Collective Soul	1995
 Disciplined Breakdown	Collective Soul	1997
 Halcyon Digest	Deerhunter	2010
 Entroducing...	DJ Shadow	1996
 Out of the Blue	Electric Light Orchestra	1977
-Morningside	Fazerdaze
+Morningside	Fazerdaze	2017
 For Sleepyheads Only	Flunk	2002
+Concrete and Gold	Foo Fighters	2017
 Teenager of the Year	Frank Black	1994
 White Light	Gene Clark	1971
+Dark Horse	George Harrison	1973
 Soul Food	Goodie Mob	1995
 American Idiot	Green Day	2004
 Old No. 1	Guy Clark	1975
@@ -36,13 +43,17 @@ Hybrid Theory	Linkin Park	2000
 Transformer	Lou Reed	1972
 I Could Live in Hope	Low	1994
 Like I Used To	Lucy Rose	2012
-Terra	Mariza	2008
+Loveless	My Bloody Valentine	1991
 In the Aeroplane Over the Sea	Neutral Milk Hotel	1998
 The Adventures of Panama Red	New Riders of the Purple Sage	1973
 Nevermind	Nirvana	1991
-Aquemini	Outkast
+Aquemini	Outkast	1998
 Stankonia	Outkast	2000
 Crooked Rain, Crooked Rain	Pavement	1994
+The Piper at the Gates of Dawn	Pink Floyd	1967
+Atom Heart Mother	Pink Floyd	1970
+Animals	Pink Floyd	1977
+The Wall	Pink Floyd	1979
 Trompe le Monde	Pixies	1991
 Dry	PJ Harvey	1992
 Portishead	Portishead	1997
@@ -50,14 +61,16 @@ Third	Portishead	2008
 Purple Rain	Prince	1984
 Songs for the Deaf	Queens of the Stone Age	2002
 Automatic for the People	R.E.M.	1992
-The King of Limbs	Radiohead
+The King of Limbs	Radiohead	2011
 Songs for a Blue Guitar	Red House Painters	1996
-Late Night Final	Richard Hawley
+Late Night Final	Richard Hawley	2001
 Royal Blood	Royal Blood	2014
 How Did We Get So Dark?	Royal Blood	2017
 Process	Sampha	2017
 The Scream	Siouxsie and the Banshees	1978
-Dopesmoker	Sleep
+Dopesmoker	Sleep	2003
+Pygmalion	Slowdive	1995
+Slowdive	Slowdive	2017
 Life	Sly and the Family Stone	1968
 There's a Riot Goin' On	Sly and the Family Stone	1971
 Becoming X	Sneaker Pimps	1996
@@ -70,6 +83,11 @@ Sandanista!	The Clash	1980
 Disintegration	The Cure	1989
 Kiss Me, Kiss Me, Kiss Me	The Cure	1987
 Roots and Branches	The Dillards	1972
+Strange Days	The Doors	1967
+Waiting for the Sun	The Doors	1968
+The Soft Parade	The Doors	1969
+Morrison Hotel	The Doors	1970
+L.A. Woman	The Doors	1971
 Sorry Ma, Forgot to Take Out the Trash	The Replacements	1981
 The Stone Roses	The Stone Roses	1989
 Dying for it	The Vaselines	1988
@@ -78,3 +96,4 @@ The Traveling Wilburys Vol. 1	Traveling Wilburys	1988
 Pink Flag	Wire	1977
 Enter the Wu-Tang (36 Chambers)	Wu-Tang Clan	1993
 I Can Hear the Heart Beating as One	Yo La Tengo	1997
+Summer Sun	Yo La Tengo	2003

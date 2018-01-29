@@ -12,12 +12,19 @@ from flask_login import (
     logout_user
 )
 from app import app, db
-from app.forms import AlbumForm, FavoritesForm, LoginForm
-from app.models import Album, User
+from app.forms import (
+    AlbumForm,
+    #FavoritesForm,
+    LoginForm,
+    RandomForm,
+    ToListenForm
+)
+from app.models import Album, User, ToListen
 import pandas as pd
 import numpy as np
 from datetime import datetime
 from sqlalchemy import func
+from random import randint
 
 
 def prep_table(df):
@@ -146,15 +153,44 @@ def edit(id):
 #TODO:
 # ability to add to tolisten
 # ability to add tolisten album to favorites
-@app.route('/tolisten/')
+@app.route('/tolisten/', methods=['GET', 'POST'])
 @login_required
 def tolisten():
-    tolisten = (AlbumToListen.query
+    form = RandomForm()
+    tolisten = (ToListen.query
                 .filter_by(user_id=current_user.id)
-                .order_by(Album.artist)
-                .order_by(Album.title))
+                .order_by(ToListen.artist)
+                .order_by(ToListen.title)
+                .all())
+    if request.method == 'POST':
+        rint = randint(0, len(tolisten) - 1)
+        flash(f'Listen to {ToListen.query.get(rint)}')
+        #return redirect(url_for('tolisten'))
     title = 'Albums To Listen'
-    return render_template('favorites.html', rows=tolisten)
+    return render_template('tolisten.html',
+                           form=form,
+                           rows=tolisten)
+
+
+@app.route('/tolisten/add/', methods=['GET', 'POST'])
+@login_required
+def add_tolisten():
+    """
+    Add an album to favorites
+    """
+    form = ToListenForm(request.form)
+    if request.method == 'POST' and form.validate_on_submit():
+        tla = ToListen()
+        tla.title = form.title.data
+        tla.artist = form.artist.data
+        tla.year = form.year.data
+        tla.user_id = current_user.id
+        db.session.add(tla)
+        db.session.commit()
+        flash(f'Successfully added album {tla.title} to listen')
+        return redirect(url_for('tolisten'))
+    return render_template('addalbumtolisten.html',
+                           form=form)
 
 
 @app.route('/login/', methods=['GET', 'POST'])
