@@ -77,7 +77,6 @@ def add_favorite():
                            rank=rank)
 
 
-#@app.route('/favorites/edit/<int:album_id>', methods=['GET', 'POST'])
 @app.route('/favorites/edit/<id>', methods=['GET', 'POST'])
 @login_required
 def edit(id):
@@ -90,18 +89,43 @@ def edit(id):
            .filter_by(id=int(id))
            .order_by(Album.rank.desc())
            .limit(1)
-           .all()) # do this before POST because we need previous al sbum id
+           .all()) # do this before POST because we need previous album id
     if request.method == 'POST' and form.validate_on_submit():
-        #album = Album()
         album = Album.query.get(id)
-        album.rank = rankrow[0].rank # need logic for changing this
+        if int(form.rank.data) != rankrow[0].rank:
+            currank = int(rankrow[0].rank)
+            album.rank = 20000 # commit dummy value
+            db.session.commit()
+            # logic for dropping album rank (e.g. 11 to 17)
+            if int(form.rank.data) > currank:
+                to_move = (Album.query
+                    .filter_by(user_id=current_user.id)
+                    .filter(Album.rank > currank)
+                    .filter(Album.rank <= int(form.rank.data))
+                    .order_by(Album.rank)
+                    .all())
+                for a in to_move:
+                    a.rank -= 1
+                    db.session.commit()
+            # logic for raising album rank (e.g. 11 to 8)
+            elif int(form.rank.data) < currank:
+                to_move = (Album.query
+                    .filter_by(user_id=current_user.id)
+                    .filter(Album.rank >= int(form.rank.data))
+                    .filter(Album.rank < currank)
+                    .order_by(Album.rank.desc())
+                    .all())
+                for a in to_move:
+                    a.rank += 1
+                    db.session.commit()
+        album.rank = form.rank.data
         album.title = form.title.data
         album.artist = form.artist.data
         album.year = form.year.data
         album.last_played = datetime.strptime(form.last_played.data, '%Y-%m-%d')
         album.user_id = current_user.id
         db.session.commit()
-        flash('Successfully edited album')
+        flash(f'Successfully edited album {form.title.data} by {form.artist.data}')
         return redirect(url_for('favorites'))
     rank = rankrow[0].rank
     title = rankrow[0].title
