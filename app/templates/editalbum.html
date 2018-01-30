@@ -6,35 +6,35 @@
         {{ form.hidden_tag() }}
         <p>
             {{ form.rank.label }}<br>
-            {{ form.rank(value=rank, size=32) }}
+            {{ form.rank(value=row.rank, size=32) }}
             {% for error in form.rank.errors %}
             <span style="color: red;">[{{ error}}]</span>
             {% endfor %}
         </p>
         <p>
             {{ form.title.label }}<br>
-            {{ form.title(value=title, size=32) }}
+            {{ form.title(value=row.title, size=32) }}
             {% for error in form.title.errors %}
             <span style="color: red;">[{{ error}}]</span>
             {% endfor %}
         </p>
         <p>
             {{ form.artist.label }}<br>
-            {{ form.artist(value=artist, size=32) }}
+            {{ form.artist(value=row.artist, size=32) }}
             {% for error in form.artist.errors %}
             <span style="color: red;">[{{ error}}]</span>
             {% endfor %}
         </p>
         <p>
             {{ form.year.label }}<br>
-            {{ form.year(value=year, size=32) }}
+            {{ form.year(value=row.year, size=32) }}
             {% for error in form.year.errors %}
             <span style="color: red;">[{{ error}}]</span>
             {% endfor %}
         </p>
         <p>
             {{ form.last_played.label }}<br>
-            {{ form.last_played(value=last_played.strftime('%Y-%m-%d'), size=32) }}
+            {{ form.last_played(value=row.last_played.strftime('%Y-%m-%d'), size=32) }}
             {% for error in form.last_played.errors %}
             <span style="color: red;">[{{ error}}]</span>
             {% endfor %}

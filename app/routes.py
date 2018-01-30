@@ -137,18 +137,10 @@ def edit(id):
         db.session.commit()
         flash(f'Successfully edited album {form.title.data} by {form.artist.data}')
         return redirect(url_for('favorites'))
-    rank = rankrow[0].rank
-    title = rankrow[0].title
-    artist = rankrow[0].artist
-    year = rankrow[0].year
-    last_played = rankrow[0].last_played
     return render_template('editalbum.html',
                            form=form,
-                           rank=rank,
-                           title=title,
-                           artist=artist,
-                           year=year,
-                           last_played=last_played)
+                           row=rankrow[0])
+
 
 #TODO:
 # ability to add tolisten album to favorites
