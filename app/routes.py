@@ -14,6 +14,7 @@ from flask_login import (
 from app import app, db
 from app.forms import (
     AlbumForm,
+    DeleteForm,
     LoginForm,
     RandomForm,
     ToListenForm
@@ -150,7 +151,6 @@ def edit(id):
                            last_played=last_played)
 
 #TODO:
-# ability to add to tolisten
 # ability to add tolisten album to favorites
 @app.route('/tolisten/', methods=['GET', 'POST'])
 @login_required
@@ -162,8 +162,11 @@ def tolisten():
                 .order_by(ToListen.title)
                 .all())
     if request.method == 'POST':
-        rint = randint(0, len(tolisten) - 1)
-        flash(f'Listen to {ToListen.query.get(rint)}')
+        selection = None
+        while selection == None:
+            rint = randint(0, len(tolisten) - 1)
+            selection = ToListen.query.get(rint)
+        flash(f'Listen to {selection}')
         #return redirect(url_for('tolisten'))
     title = 'Albums To Listen'
     return render_template('tolisten.html',
@@ -221,6 +224,20 @@ def edit_tolisten(id):
                            title=title,
                            artist=artist,
                            year=year)
+
+
+@app.route('/tolisten/delete/<id>/', methods=['GET', 'POST'])
+@login_required
+def delete_tolisten(id):
+    form = DeleteForm()
+    todelete = ToListen.query.get(id)
+    title, artist = todelete.title, todelete.artist
+    if request.method == 'POST':
+        flash(f'Deleted {title} by {artist} from albums to listen')
+        ToListen.query.filter(ToListen.id==id).delete()
+        db.session.commit()
+        return redirect(url_for('tolisten'))
+    return render_template('delete.html', form=form, todelete=todelete)
 
 
 @app.route('/lastplayed/')

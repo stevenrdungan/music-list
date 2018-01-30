@@ -15,12 +15,15 @@ Features to develop:
 * add 'last played' list **DONE Jan 29**
 * add css/styling
 * ability to edit tolisten records **DONE Jan 29**
-* ability to delete tolisten records
+* ability to delete tolisten records **DONE Jan 30**
 * ability to move from tolisten to favorites
 * **add unit testing**
 * **add logging**
+* deploy
+
 
 **low priority**
+* search functionality
 * "played" button to automatically increment play and change last play date
 * keep track of number of plays
 * add analytics page

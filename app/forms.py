@@ -37,4 +37,8 @@ class ToListenForm(FlaskForm):
 
 '''Select a random album from tolisten page'''
 class RandomForm(FlaskForm):
-        random = SubmitField('Random Album')
+    random = SubmitField('Random Album')
+
+
+class DeleteForm(FlaskForm):
+    delete = SubmitField('Yes, delete')

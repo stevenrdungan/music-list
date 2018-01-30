@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Delete Album</h1>
+    <p>Deleting album '{{ todelete.title }}' by '{{ todelete.artist }}'</p>
+    <form action="" method="post">
+        <p>{{ form.delete() }}</p>
+    </form>
+{% endblock %}
