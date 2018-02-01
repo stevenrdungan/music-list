@@ -16,7 +16,7 @@ Features to develop:
 * add css/styling
 * ability to edit tolisten records **DONE Jan 29**
 * ability to delete tolisten records **DONE Jan 30**
-* ability to move from tolisten to favorites
+* ability to move from tolisten to favorites **DONE Feb 1**
 * **add unit testing**
 * **add logging**
 * deploy
