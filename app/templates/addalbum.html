@@ -13,21 +13,33 @@
         </p>
         <p>
             {{ form.title.label }}<br>
+            {% if toadd.title is not none%}
+            {{ form.title(value=toadd.title, size=32) }}
+            {% else %}
             {{ form.title(size=32) }}
+            {% endif %}
             {% for error in form.title.errors %}
             <span style="color: red;">[{{ error}}]</span>
             {% endfor %}
         </p>
         <p>
             {{ form.artist.label }}<br>
+            {% if toadd.artist is not none%}
+            {{ form.artist(value=toadd.artist, size=32) }}
+            {% else %}
             {{ form.artist(size=32) }}
+            {% endif %}
             {% for error in form.artist.errors %}
             <span style="color: red;">[{{ error}}]</span>
             {% endfor %}
         </p>
         <p>
             {{ form.year.label }}<br>
+            {% if toadd.year is not none%}
+            {{ form.year(value=toadd.year, size=32) }}
+            {% else %}
             {{ form.year(size=32) }}
+            {% endif %}
             {% for error in form.year.errors %}
             <span style="color: red;">[{{ error}}]</span>
             {% endfor %}

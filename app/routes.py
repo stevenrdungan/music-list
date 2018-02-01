@@ -84,7 +84,8 @@ def add_favorite():
     return render_template('addalbum.html',
                            form=form,
                            last_played=curr_dt,
-                           rank=rank)
+                           rank=rank,
+                           toadd=None)
 
 
 @app.route('/favorites/edit/<id>', methods=['GET', 'POST'])
@@ -230,6 +231,41 @@ def delete_tolisten(id):
         db.session.commit()
         return redirect(url_for('tolisten'))
     return render_template('delete.html', form=form, todelete=todelete)
+
+
+@app.route('/tolisten/add_to_favorites/<id>/', methods=['GET', 'POST'])
+@login_required
+def add_tl_to_fav(id):
+    """
+    Add an album from tolisten to favorites
+    """
+    toadd = ToListen.query.get(id)
+    form = AlbumForm(request.form)
+    if request.method == 'POST' and form.validate_on_submit():
+        # add logic to insert album in any position
+        album = Album()
+        album.rank = form.rank.data
+        album.title = form.title.data
+        album.artist = form.artist.data
+        album.year = form.year.data
+        album.last_played = datetime.strptime(form.last_played.data, '%Y-%m-%d')
+        album.user_id = current_user.id
+        db.session.add(album)
+        title, artist = toadd.title, toadd.artist
+        ToListen.query.filter(ToListen.id==id).delete()
+        db.session.commit()
+        flash(f'Successfully added album {album.title} by {album.artist}')
+        flash(f'Deleted {title} by {artist} from albums to listen')
+        return redirect(url_for('favorites'))
+    # addt'l variables
+    curr_dt = datetime.now().strftime('%Y-%m-%d')
+    rank = db.session.query(func.max(Album.rank).label("rank")).scalar() + 1
+    curr_dt = datetime.now().strftime('%Y-%m-%d')
+    return render_template('addalbum.html',
+                           form=form,
+                           last_played=curr_dt,
+                           rank=rank,
+                           toadd=toadd)
 
 
 @app.route('/lastplayed/')
