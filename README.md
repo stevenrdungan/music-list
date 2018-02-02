@@ -23,7 +23,7 @@ Features to develop:
 
 
 **low priority**
-* search functionality
+* search functionality w/ Elasticsearch
 * "played" button to automatically increment play and change last play date
 * keep track of number of plays
 * add analytics page
