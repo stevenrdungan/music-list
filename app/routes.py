@@ -25,6 +25,7 @@ import numpy as np
 from datetime import datetime
 from sqlalchemy import func
 from random import randint
+from elasticsearch import Elasticsearch
 
 
 def prep_table(df):
@@ -157,6 +158,9 @@ def tolisten():
     if request.method == 'POST':
         selection = None
         while selection == None:
+            #TO-DO: query for all id's and then select random id.
+            #currently as albums get deleted the id's do not get backfilled
+            #so over time we will not be including more and more albums...
             rint = randint(0, len(tolisten) - 1)
             selection = ToListen.query.get(rint)
         flash(f'Listen to {selection}')
@@ -278,6 +282,18 @@ def lastplayed(count=20):
     title = 'Favorite Albums of All Time'
     return render_template('favorites.html', rows=lastplayed)
 
+
+@app.route('/favorites/search/')
+def search():
+    term = request.args.get('term', '')
+    filters = request.args.get('filter', '')
+
+    if not term or term == 'null':
+        term = '*'
+
+    results = perform_query(term, filters)
+
+    return render_template('favorites.html')
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
