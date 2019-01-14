@@ -153,7 +153,7 @@ def tolisten():
     tolisten = (ToListen.query
                 .filter_by(user_id=current_user.id)
                 .order_by(ToListen.artist)
-                .order_by(ToListen.title)
+                .order_by(ToListen.year)
                 .all())
     if request.method == 'POST':
         selection = None
