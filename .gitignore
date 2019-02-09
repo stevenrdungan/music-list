@@ -112,3 +112,5 @@ app_backup.db
 
 # .pyc files
 *.pyc
+
+creds.txt
