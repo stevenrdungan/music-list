@@ -9,6 +9,7 @@ Features to develop:
 * add "played" button to change last play date
 * change schema to track number of plays
 * dashboard view as landing page
+* add ability to choose how many songs last played
 
 **enhancements**
 * add css/styling
