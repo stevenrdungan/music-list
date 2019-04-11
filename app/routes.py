@@ -61,8 +61,13 @@ def add_favorite():
     Add an album to favorites
     """
     form = AlbumForm(request.form)
+    rankrow = (Album.query
+           .filter_by(user_id=current_user.id)
+           .order_by(Album.rank.desc())
+           .limit(1)
+           .all())
+    rank = rankrow[0].rank + 1
     if request.method == 'POST' and form.validate_on_submit():
-        # add logic to insert album in any position
         album = Album()
         album.rank = form.rank.data
         album.title = form.title.data
@@ -70,18 +75,34 @@ def add_favorite():
         album.year = form.year.data
         album.last_played = datetime.strptime(form.last_played.data, '%Y-%m-%d')
         album.user_id = current_user.id
+        # make sure the added album's ranking is no lower than what makes sense
+        # e.g. if there are currently 200 albums in favorites,
+        # the lowest that makes sense is 201
+        if int(album.rank) > rank:
+            album.rank = rank
+        elif int(album.rank) < rank:
+            # get every album lower *numerically higher) in current ranking
+            # than the ranking we are trying to add to
+            # and increment ranking by 1
+            # e.g. there are 200 albums and we assign a ranking of 195 to new album
+            # album currently ranked 195 will become 196,
+            # album currently ranked 196 will becomes 197...
+            # ...album current ranked 200 will become 201
+            to_move = (Album.query
+                .filter_by(user_id=current_user.id)
+                .filter(Album.rank >= int(form.rank.data))
+                .filter(Album.rank < rank)
+                .order_by(Album.rank.desc())
+                .all())
+            for a in to_move:
+                a.rank += 1
+                db.session.commit()
         db.session.add(album)
         db.session.commit()
         flash(f'Successfully added album {album.title} by {album.artist}')
         return redirect(url_for('favorites'))
     # addt'l variables
     curr_dt = datetime.now().strftime('%Y-%m-%d')
-    rankrow = (Album.query
-           .filter_by(user_id=current_user.id)
-           .order_by(Album.rank.desc())
-           .limit(1)
-           .all())
-    rank = rankrow[0].rank + 1
     return render_template('addalbum.html',
                            form=form,
                            last_played=curr_dt,
@@ -144,8 +165,6 @@ def edit(id):
                            row=rankrow[0])
 
 
-#TODO:
-# ability to add tolisten album to favorites
 @app.route('/tolisten/', methods=['GET', 'POST'])
 @login_required
 def tolisten():
@@ -245,8 +264,11 @@ def add_tl_to_fav(id):
     """
     toadd = ToListen.query.get(id)
     form = AlbumForm(request.form)
+    # the suggested rank should be the next available rank
+    # e.g. if there are 200 albums currently in the favorites list,
+    # the suggested rank should be 201
+    rank = db.session.query(func.max(Album.rank).label("rank")).scalar() + 1
     if request.method == 'POST' and form.validate_on_submit():
-        # add logic to insert album in any position
         album = Album()
         album.rank = form.rank.data
         album.title = form.title.data
@@ -254,6 +276,28 @@ def add_tl_to_fav(id):
         album.year = form.year.data
         album.last_played = datetime.strptime(form.last_played.data, '%Y-%m-%d')
         album.user_id = current_user.id
+        # make sure the added album's ranking is no lower than what makes sense
+        # e.g. if there are currently 200 albums in favorites,
+        # the lowest that makes sense is 201
+        if int(album.rank) > rank:
+            album.rank = rank
+        elif int(album.rank) < rank:
+            # get every album lower *numerically higher) in current ranking
+            # than the ranking we are trying to add to
+            # and increment ranking by 1
+            # e.g. there are 200 albums and we assign a ranking of 195 to new album
+            # album currently ranked 195 will become 196,
+            # album currently ranked 196 will becomes 197...
+            # ...album current ranked 200 will become 201
+            to_move = (Album.query
+                .filter_by(user_id=current_user.id)
+                .filter(Album.rank >= int(form.rank.data))
+                .filter(Album.rank < rank)
+                .order_by(Album.rank.desc())
+                .all())
+            for a in to_move:
+                a.rank += 1
+                db.session.commit()
         db.session.add(album)
         title, artist = toadd.title, toadd.artist
         ToListen.query.filter(ToListen.id==id).delete()
@@ -263,7 +307,6 @@ def add_tl_to_fav(id):
         return redirect(url_for('favorites'))
     # addt'l variables
     curr_dt = datetime.now().strftime('%Y-%m-%d')
-    rank = db.session.query(func.max(Album.rank).label("rank")).scalar() + 1
     curr_dt = datetime.now().strftime('%Y-%m-%d')
     return render_template('addalbum.html',
                            form=form,

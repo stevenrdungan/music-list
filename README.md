@@ -2,7 +2,6 @@ Features to develop:
 
 
 **features list**
-* add ability to add album to any ranking
 * add ability to drag album to re-order favorites list
 * add ability to delete album from favorites
 * add ability to export list to spreadsheet (google drive?)
@@ -18,3 +17,4 @@ Features to develop:
 * React frontend?
 * Elasticsearch functionality
 * db backups?
+* unit tests
