@@ -20,6 +20,7 @@ from app.forms import (
     ToListenForm
 )
 from app.models import Album, User, ToListen
+import csv
 import pandas as pd
 import numpy as np
 from datetime import datetime
@@ -318,3 +319,20 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+
+@app.route('/exportFavorites/')
+@login_required
+def export_favorites():
+    #f = open('album_favorites.csv', 'w')
+    out = csv.writer()
+    favorites = (Album.query
+                .filter_by(user_id=current_user.id)
+                .order_by(Album.rank))
+    [out.writerow([getattr(curr, column.name) for column in Album.__mapper__.columns]) for curr in favorites]
+    #f.close()
+    return Response(
+        csv,
+        mimetype="text/csv",
+        headers={"Content-disposition":
+                 "attachment; filename=album_favorites.csv"})
