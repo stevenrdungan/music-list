@@ -2,6 +2,7 @@ Features to develop:
 
 
 **features list**
+* add 'Add Another' to Albums to Listen
 * add ability to drag album to re-order favorites list
 * add ability to delete album from favorites
 * add ability to export list to spreadsheet (google drive?)
