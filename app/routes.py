@@ -208,8 +208,9 @@ def add_tolisten():
         db.session.commit()
         flash(f'Successfully added album {tla.title} by {tla.artist} to listen')
         if request.form.get('another'):
-            return render_template('addalbumtolisten.html',
-                                   form=form)
+#            return render_template('addalbumtolisten.html',
+#                                   form=form)
+            return redirect(url_for('add_tolisten'))
         else:
             return redirect(url_for('tolisten'))
     return render_template('addalbumtolisten.html',
