@@ -32,7 +32,8 @@ class ToListenForm(FlaskForm):
     title = StringField('Title', [validators.InputRequired()])
     artist = StringField('Artist', [validators.InputRequired()])
     year = StringField('Year', [validators.InputRequired()])
-    submit = SubmitField('Commit Changes')
+    commit = SubmitField('Commit Changes')
+    another = SubmitField('Add Another')
 
 
 '''Select a random album from tolisten page'''
