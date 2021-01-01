@@ -111,6 +111,30 @@ def add_favorite():
                            toadd=None)
 
 
+@app.route('/favorites/delete/<id>/', methods=['GET', 'POST'])
+@login_required
+def delete_favorite(id):
+    form = DeleteForm()
+    todelete = Album.query.get(id)
+    title, artist, delrank = todelete.title, todelete.artist, todelete.rank
+    if request.method == 'POST':
+        flash(f'Deleted {title} by {artist} from Favorites')
+        Album.query.filter(Album.id==id).delete()
+        db.session.commit()
+        # update ranking for everything below
+        to_move = (Album.query
+            .filter_by(user_id=current_user.id)
+            .filter(Album.rank > int(delrank))
+            .order_by(Album.rank.asc())
+            .all())
+        for a in to_move:
+            a.rank -= 1
+            isit = Album.query.get(a.rank)
+            db.session.commit()
+        return redirect(url_for('favorites'))
+    return render_template('delete.html', form=form, todelete=todelete)
+
+
 @app.route('/favorites/edit/<id>', methods=['GET', 'POST'])
 @login_required
 def edit(id):
