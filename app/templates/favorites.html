@@ -21,6 +21,8 @@
                 <td>{{ r.year }}</td>
                 <td>{{ r.last_played.strftime('%Y-%m-%d') }}</td>
                 <td><a href="{{ url_for('edit', id=r.id)}}">edit</a></td>
+                <td><a href="{{ url_for('delete_favorite', id=r.id)}}">delete</a></td>
+
             </tr>
             {% endfor %}
         </tbody>
