@@ -46,11 +46,13 @@ def index():
 
 
 @app.route('/favorites/')
+@app.route('/favorites/<count>')
 @login_required
-def favorites():
+def favorites(count=200):
     favorites = (Album.query
                 .filter_by(user_id=current_user.id)
-                .order_by(Album.rank))
+                .order_by(Album.rank)
+                .limit(count))
     title = 'Favorite Albums of All Time'
     return render_template('favorites.html', rows=favorites)
 
