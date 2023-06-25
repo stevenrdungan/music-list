@@ -48,7 +48,7 @@ def index():
 @app.route('/favorites/')
 @app.route('/favorites/<count>')
 @login_required
-def favorites(count=200):
+def favorites(count=500):
     favorites = (Album.query
                 .filter_by(user_id=current_user.id)
                 .order_by(Album.rank)
